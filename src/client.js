@@ -18,7 +18,7 @@ function createClient (config) {
     },
     createEntryLoader: function (api, locale) {
       api = api || 'cdn';
-      if (api === CDA || api === CPA && locale !== undefined) config.locale = locale;
+      if ((api === CDA || api === CPA) && locale) config.locale = locale;
       return createEntryLoader(createContentfulClient(api, config));
     }
   };
@@ -37,7 +37,7 @@ function createContentfulClient (api, config) {
   const headers = {Authorization: `Bearer ${token}`};
 
   const defaultParams = {};
-  if (api === CDA || api === CPA && config.locale) {
+  if ((api === CDA || api === CPA) && config.locale) {
     defaultParams.locale = config.locale;
   }
 
