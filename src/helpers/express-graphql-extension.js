@@ -16,8 +16,10 @@ function createExtension (client, schema, options = {}) {
   return function (req, res, params) {
     const start = Date.now();
     let api = 'cdn';
+    let locale;
     if (params && params.variables && params.variables.preview) api = 'preview';
-    const entryLoader = client.createEntryLoader(api);
+    if (params && params.variables && params.variables.locale) locale = params.variables.locale;
+    const entryLoader = client.createEntryLoader(api, locale);
     return {
       context: {entryLoader},
       schema,
